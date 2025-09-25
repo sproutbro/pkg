@@ -1,4 +1,4 @@
-module github.com/krsprout/pkg
+module github.com/sproutbro/pkg
 
 go 1.22.2
 
