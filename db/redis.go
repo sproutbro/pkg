@@ -8,8 +8,8 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-func NewRedies(envPath string) *redis.Client {
-	if err := godotenv.Load(envPath); err != nil {
+func NewRedies(env string) *redis.Client {
+	if err := godotenv.Load(env); err != nil {
 		fmt.Println(err)
 		return nil
 	}

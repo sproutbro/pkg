@@ -7,14 +7,13 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
-	env "github.com/sproutbro/pkg/.env"
 
 	"github.com/joho/godotenv"
 )
 
-func NewPG() *sql.DB {
+func NewPG(env string) *sql.DB {
 
-	if err := godotenv.Load(env.ENV); err != nil {
+	if err := godotenv.Load(env); err != nil {
 		fmt.Println(err)
 		return nil
 	}

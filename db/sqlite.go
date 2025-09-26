@@ -11,8 +11,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func NewSQLite(envPath string) *sql.DB {
-	if err := godotenv.Load(envPath); err != nil {
+func NewSQLite(env string) *sql.DB {
+	if err := godotenv.Load(env); err != nil {
 		fmt.Println(err)
 		return nil
 	}
