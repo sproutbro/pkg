@@ -3,23 +3,15 @@ package dbx
 import (
 	"database/sql"
 	"fmt"
-	"log"
-	"os"
 
 	_ "github.com/mattn/go-sqlite3"
-
-	"github.com/joho/godotenv"
+	"github.com/sproutbro/pkg/config"
 )
 
-func NewSQLite(env string) *sql.DB {
-	if err := godotenv.Load(env); err != nil {
-		fmt.Println(err)
-		return nil
-	}
-
-	db, err := sql.Open("sqlite3", os.Getenv("SQLITE_PATH"))
+func NewSQLite(sqlite *config.Sqlite) *sql.DB {
+	db, err := sql.Open("sqlite3", sqlite.SQLITE1)
 	if err != nil {
-		log.Fatalln(err)
+		fmt.Println("sqlite.go 15", err)
 	}
 	return db
 }

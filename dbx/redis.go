@@ -1,22 +1,14 @@
 package dbx
 
 import (
-	"fmt"
-	"os"
-
-	"github.com/joho/godotenv"
 	"github.com/redis/go-redis/v9"
+	"github.com/sproutbro/pkg/config"
 )
 
-func NewRedies(env string) *redis.Client {
-	if err := godotenv.Load(env); err != nil {
-		fmt.Println(err)
-		return nil
-	}
-
+func NewRedies(rdb *config.Redis) *redis.Client {
 	return redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_ADDR"),
-		Password: os.Getenv("REDIS_PASS"),
+		Addr:     rdb.ADDR,
+		Password: rdb.PASS,
 		DB:       0,
 		Protocol: 2,
 	})

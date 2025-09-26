@@ -3,24 +3,17 @@ package dbx
 import (
 	"database/sql"
 	"fmt"
-	"log"
-	"os"
 
 	_ "github.com/lib/pq"
-
-	"github.com/joho/godotenv"
+	"github.com/sproutbro/pkg/config"
 )
 
-func NewPG(env string) *sql.DB {
+func NewPG(pg *config.PG) *sql.DB {
 
-	if err := godotenv.Load(env); err != nil {
-		fmt.Println(err)
-		return nil
-	}
-
-	db, err := sql.Open("postgres", os.Getenv("PG_DNS"))
+	db, err := sql.Open("postgres", pg.DNS)
 	if err != nil {
-		log.Fatalln(err)
+		fmt.Println("pg.go 15", err)
+		return nil
 	}
 	defer db.Close()
 	return db

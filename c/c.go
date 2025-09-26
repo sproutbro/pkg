@@ -1,4 +1,4 @@
-package converter
+package c
 
 import (
 	"encoding/json"
