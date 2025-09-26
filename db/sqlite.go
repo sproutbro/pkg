@@ -1,4 +1,4 @@
-package pkg
+package db
 
 import (
 	"database/sql"
@@ -17,7 +17,7 @@ func NewSQLite(envPath string) *sql.DB {
 		return nil
 	}
 
-	db, err := sql.Open("sqlite3", os.Getenv("SQLITE_FILE"))
+	db, err := sql.Open("sqlite3", os.Getenv("SQLITE_PATH"))
 	if err != nil {
 		log.Fatalln(err)
 	}

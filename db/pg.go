@@ -1,4 +1,4 @@
-package pkg
+package db
 
 import (
 	"database/sql"
@@ -7,12 +7,14 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
+	env "github.com/sproutbro/pkg/.env"
 
 	"github.com/joho/godotenv"
 )
 
-func NewPG(envPath string) *sql.DB {
-	if err := godotenv.Load(envPath); err != nil {
+func NewPG() *sql.DB {
+
+	if err := godotenv.Load(env.ENV); err != nil {
 		fmt.Println(err)
 		return nil
 	}
