@@ -13,8 +13,14 @@ type (
 		Redis  Redis
 		PG     PG
 
+		Only Only
+	}
+
+	Only struct {
 		Kakao  Kakao
 		Google Google
+		Redis  Redis
+		PORT   string `env:"ONLY_PORT"`
 	}
 
 	// DB
@@ -22,61 +28,48 @@ type (
 		SQLITE1 string `env:"SQLITE1"`
 		SQLITE2 string `env:"SQLITE2"`
 		SQLITE3 string `env:"SQLITE3"`
-		SQLITE4 string `env:"SQLITE4"`
-		SQLITE5 string `env:"SQLITE5"`
 	}
 
 	Redis struct {
-		ADDR string `env:"REDIS_ADDR"`
-		PASS string `env:"REDIS_PASS"`
+		ADDR     string `env:"REDIS_ADDR"`
+		PASS     string `env:"REDIS_PASS"`
+		DB       int    `env:"REDIS_DB"`
+		PROTOCOL int    `env:"REDIS_PROTOCOL"`
 	}
 
 	PG struct {
-		DNS string `env:"PG_DNS"`
+		HOST string `env:"PG_HOST"`
+		NAME string `env:"PG_NAME"`
+		USER string `env:"PG_USER"`
+		PASS string `env:"PG_PASS"`
+		PORT string `env:"PG_PORT"`
 	}
 
 	// Auth
 	Kakao struct {
-		Client   string `env:"KAKAO_CLIENT"`
-		Secret   string `env:"KAKAO_SECRET"`
-		Redirect string `env:"KAKAO_REDIRECT"`
-		Endpoint struct {
-			AUTH  string `env:"KAKAO_AUTH"`
-			TOKEN string `env:"KAKAO_TOKEN"`
-			INFO  string `env:"KAKAO_INFO"`
-		}
+		ClientID     string   `json:"clientID" env:"KAKAO_CLIENT"`
+		ClientSecret string   `json:"clientSecret" env:"KAKAO_SECRET"`
+		RedirectURL  string   `json:"redirectURL" env:"KAKAO_REDIRECT"`
+		Scopes       []string `json:"scopes" env:"KAKAO_SCOPES"`
 	}
 
 	Google struct {
-		Client   string `env:"GOOGLE_CLIENT"`
-		Secret   string `env:"GOOGLE_SECRET"`
-		Redirect string `env:"GOOGLE_REDIRECT"`
-		Endpoint struct {
-			AUTH  string `env:"GOOGLE_AUTH"`
-			TOKEN string `env:"GOOGLE_TOKEN"`
-			INFO  string `env:"GOOGLE_INFO"`
-		}
-	}
-
-	// PORT
-	PORT struct {
-		PORT1 string `env:"PORT1"`
-		PORT2 string `env:"PORT2"`
-		PORT3 string `env:"PORT3"`
-		PORT4 string `env:"PORT4"`
-		PORT5 string `env:"PORT5"`
+		Client   string   `json:"clientID" env:"GOOGLE_CLIENT"`
+		Secret   string   `json:"clientSecret" env:"GOOGLE_SECRET"`
+		Redirect string   `json:"redirectURL" env:"GOOGLE_REDIRECT"`
+		Scopes   []string `json:"scopes" env:"GOOGLE_SCOPES"`
 	}
 )
 
 func Load(envpath string) (*Config, error) {
 	err := godotenv.Load(envpath)
 	if err != nil {
-		return nil, fmt.Errorf("config.go 65: %w", err)
+		return nil, fmt.Errorf("config.go 61: %w", err)
 	}
 
 	cfg := &Config{}
 	if err := env.Parse(cfg); err != nil {
-		return nil, fmt.Errorf("config.go 71: %w", err)
+		return nil, fmt.Errorf("config.go 66: %w", err)
 	}
 
 	return cfg, nil

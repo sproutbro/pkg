@@ -8,13 +8,14 @@ import (
 	"github.com/sproutbro/pkg/config"
 )
 
-func NewPG(pg *config.PG) *sql.DB {
+var dns = "host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/seoul"
 
-	db, err := sql.Open("postgres", pg.DNS)
+func NewPG(pg *config.PG) (*sql.DB, error) {
+	dns := fmt.Sprintf(dns, pg.HOST, pg.USER, pg.PASS, pg.NAME, pg.PORT)
+	db, err := sql.Open("postgres", dns)
 	if err != nil {
-		fmt.Println("pg.go 15", err)
-		return nil
+		return nil, fmt.Errorf("pg.go 16 %w", err)
 	}
 	defer db.Close()
-	return db
+	return db, nil
 }

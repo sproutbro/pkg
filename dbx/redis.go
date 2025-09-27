@@ -9,7 +9,7 @@ func NewRedies(rdb *config.Redis) *redis.Client {
 	return redis.NewClient(&redis.Options{
 		Addr:     rdb.ADDR,
 		Password: rdb.PASS,
-		DB:       0,
-		Protocol: 2,
+		DB:       rdb.DB,
+		Protocol: rdb.PROTOCOL,
 	})
 }
