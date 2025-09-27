@@ -10,10 +10,12 @@ type Resp struct {
 	Value any `json:"value"`
 }
 
-func JSON(w http.ResponseWriter, status int, data interface{}) {
+type Res func(string, any)
+
+func JSON(w http.ResponseWriter, status int, Res Resp) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(data)
+	json.NewEncoder(w).Encode(Res)
 }
 
 func Query(r *http.Response, name string) string {
