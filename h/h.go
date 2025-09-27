@@ -6,18 +6,16 @@ import (
 )
 
 type Resp struct {
-	Key   int `json:"key"`
-	Value any `json:"value"`
+	Key   string `json:"key"`
+	Value any    `json:"value"`
 }
 
-type Res func(string, any)
-
-func JSON(w http.ResponseWriter, status int, Res Resp) {
+func JSON(w http.ResponseWriter, status int, r Resp) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(Res)
+	json.NewEncoder(w).Encode(r)
 }
 
-func Query(r *http.Response, name string) string {
-	return r.Request.URL.Query().Get(name)
+func Query(r *http.Request, name string) string {
+	return r.URL.Query().Get(name)
 }
