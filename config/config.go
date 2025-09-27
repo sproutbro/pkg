@@ -57,6 +57,15 @@ type (
 			INFO  string `env:"GOOGLE_INFO"`
 		}
 	}
+
+	// PORT
+	PORT struct {
+		PORT1 string `env:"PORT1"`
+		PORT2 string `env:"PORT2"`
+		PORT3 string `env:"PORT3"`
+		PORT4 string `env:"PORT4"`
+		PORT5 string `env:"PORT5"`
+	}
 )
 
 func Load(envpath string) (*Config, error) {
